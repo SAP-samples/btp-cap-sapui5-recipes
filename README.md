@@ -20,7 +20,7 @@ Please edit this file as it is the primary description file for your project. Yo
 -->
 
 ## Description
-<!-- Please include SEO-friendly description -->
+RMS(Recipe Management system) is used to manage the different taste buds of kids. The recipe varies based on allergies, fitness goals and time management. One kid likes Chewy brownies and other Kid likes Fudgy dense brownies. some kids have specific allergies, so wishes to have gluten free brownie. some wishes to have freshly made quick Brownie each day. Mothers are finding it hard to adjust the recipes each time. With this Recipe Web app, mothers can adjust recipe easily and it can be shared and changed to entire group. The Recipe Management web application is used to create and manage the recipes with the list of ingredients and method of preparation.
 
 ## Requirements
 
