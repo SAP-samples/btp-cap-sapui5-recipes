@@ -1,0 +1,130 @@
+<mvc:View controllerName="sap.ui.ic2022.controller.RecipesList" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">       
+    <f:FilterBar showClearButton="true" showRestoreButton="true" filtersDialogClosed="onFiltersDialogClosed" cancel="onCancel" search="onSearch" reset="onReset" id="filterBar" clear="onClear" showFilterConfiguration="false">
+        <f:filterGroupItems>
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Difficulty level" name="difficultyLevel" labelTooltip="filter by difficulty level">
+                <f:control>
+                    <ComboBox change="onChange" selectedKey="0">
+                        <items>
+                            <core:Item text="{i18n>all}" key="0" />
+                            <core:Item text="{i18n>difficultyLevel1}" key="1" />
+                            <core:Item text="{i18n>difficultyLevel2}" key="2" />
+                            <core:Item text="{i18n>difficultyLevel3}" key="3" />
+                        </items>                            
+                    </ComboBox>
+                </f:control>
+            </f:FilterGroupItem>
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Dietary Type" name="dietaryType" labelTooltip="filter by Dietary Type">
+                <f:control>
+                    <ComboBox change="onChange" selectedKey="0">
+                        <items>
+                            <core:Item text="{i18n>all}" key="0" />
+                            <core:Item text="Meat" key="Meat" />
+                            <core:Item text="Pescatarian" key="Pescatarian" />
+                            <!-- <core:Item text="Seafood" key="Seafood" />  -->
+                            <core:Item text="Vegetarian" key="Vegetarian" />
+                            <core:Item text="Vegan" key="Vegan" />
+                            <core:Item text="Other" key="Other" />
+                        </items>                            
+                    </ComboBox>
+                </f:control>
+            </f:FilterGroupItem>         
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Recipe Category" name="recipeCategory" labelTooltip="filter by Recipe Category">
+                <f:control>
+                    <ComboBox change="onChange" selectedKey="0">
+                        <items>
+                            <core:Item text="{i18n>all}" key="0" />
+                            <core:Item text="Dessert" key="Dessert" />
+                            <core:Item text="Main dish" key="Main dish" />
+                            <core:Item text="Salad" key="Salad" />
+                            <core:Item text="Side" key="Side" />
+                            <core:Item text="Other" key="Other" />
+                        </items>                           
+                    </ComboBox>
+                </f:control>
+            </f:FilterGroupItem>      
+            <!-- <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Recipe Name" name="name" mandatory="true" labelTooltip="filter by Recipe Name">
+                <f:control>
+                    <Input id="name" />
+                </f:control>
+            </f:FilterGroupItem>  -->
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Cooking method" name="cookingMethod" labelTooltip="filter by Cooking method">
+                <f:control>
+                    <ComboBox change="onChange" selectedKey="0">
+                        <items>
+                            <core:Item text="{i18n>all}" key="0" />						
+                            <core:Item text="Grill" key="Grill" />
+                            <core:Item text="Raw" key="Raw" />
+                            <core:Item text="Oven Bake" key="Oven Bake" />
+                            <core:Item text="Other" key="Other" />
+                        </items>                           
+                    </ComboBox>
+                </f:control>
+            </f:FilterGroupItem>   
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Recipe Cuisine" name="recipeCuisine" labelTooltip="filter by Recipe Cuisine">
+                <f:control>
+                    <ComboBox change="onChange" selectedKey="0">
+                        <items>
+                            <core:Item text="{i18n>all}" key="0" />								
+                            <core:Item text="African" key="African" />
+                            <core:Item text="Asian" key="Asian" />
+                            <core:Item text="European" key="European" />
+                            <core:Item text="North American" key="North American" />
+                            <core:Item text="Middle Eastern" key="Middle Eastern" />
+                            <core:Item text="South American" key="South American" />                                        
+                            <core:Item text="Other" key="Other" />
+                        </items>                           
+                    </ComboBox>
+                </f:control>
+            </f:FilterGroupItem>        
+            <f:FilterGroupItem visibleInFilterBar="true" partOfCurrentVariant="true" groupName="recipeFilter" label="Recipe Author" name="Author/alias" labelTooltip="filter by Recipe Author">
+                <f:control>
+                    <Input name="recipe-service>Author/alias" />
+                </f:control>
+            </f:FilterGroupItem>                                           
+        </f:filterGroupItems>
+
+    </f:FilterBar>
+    <List id="recipesList" headerText="{i18n>recipesListTitle}" class="sapUiResponsiveMargin" width="auto" items="{
+        path: 'recipe-service>/Recipes',
+        parameters: { expand: 'Author'}
+    }">
+
+    <headerToolbar>
+      <Toolbar>
+          
+        <Title text="{i18n>recipesListTitle}" />
+        <ToolbarSpacer />
+
+
+
+        <SearchField width="50%" search=".onFilterRecipes" />
+         <Button icon="sap-icon://refresh" press="onRefresh" />    
+             
+      </Toolbar>
+ 
+ 
+    </headerToolbar>
+
+    <items class="sapUiResponsiveContentPadding">
+      <ObjectListItem class="sapUiForceWidthAuto" title="{recipe-service>name} &#010; 
+                        {recipe-service>description}" icon="{recipe-service>imageUrl}" intro="{i18n>authorLabel} {recipe-service>Author/alias}" type="Navigation" press="onPress">
+        <firstStatus>
+          <ObjectStatus text="Difficulty levels: { 
+                        path: 'recipe-service>difficultyLevel',
+                        formatter: '.formatter.statusText'
+                    }" />
+        </firstStatus>
+        <secondStatus>
+          <ObjectStatus text="Estimated cost: { 
+                        path: 'recipe-service>estimatedCost',
+                        formatter: '.formatter.costLevelText'
+                    }" />
+        </secondStatus>
+        <ObjectAttribute text="Servings : {recipe-service>servings}" />
+        <ObjectAttribute text="Total Time : {recipe-service>totalTime} minutes"/>
+
+        
+      </ObjectListItem>
+    </items>
+  </List>
+</mvc:View>

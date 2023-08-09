@@ -1,0 +1,178 @@
+{
+  "_version": "1.1.0",
+  "start_url": "<startUrl>",
+  "sap.app": {
+    "_version": "1.1.0",
+    "id": "sap.ui.ic2022",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "tags": {},
+    "dataSources": {
+      "recipe-service": {
+        "uri": "/recipe/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "sourceTemplate": {
+      "id": "@sap/ux-app-migrator:freestyle",
+      "version": "1.6.3",
+      "toolsId": "e0f78c9f-e267-4783-913e-1fd5142697c1"
+    }
+  },
+  "sap.ui": {
+    "_version": "1.1.0",
+    "icons": {
+      "icon": "<icon>",
+      "favIcon": "<favIcon>",
+      "phone": "<phone>",
+      "phone@2": "<phone@2>",
+      "tablet": "<tablet>",
+      "tablet@2": "<tablet@2>"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": ["sap_hcb", "sap_bluecrystal"]
+  },
+  "sap.ui5": {
+    "_version": "1.1.0",
+    "resources": {
+      "js": [
+        {
+          "uri": "<uri>"
+        }
+      ],
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "dependencies": {
+      "minUI5Version": "1.60",
+      "libs": {
+        "sap.m": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.ui.ic2022.i18n.i18n",
+          "supportedLocales": [""],
+          "fallbackLocale": ""
+        },
+        "uri": "<uriRelativeToManifest>"
+      },
+      "recipe-service": {
+        "dataSource": "recipe-service",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "user-management": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "rootView": {
+      "viewName": "sap.ui.ic2022.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "handleValidation": false,
+    "config": {},
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "sap.ui.ic2022.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "overview",
+          "target": "overview"
+        },
+        {
+          "pattern": "detail/{recipesPath}",
+          "name": "detail",
+          "target": "detail"
+        },
+        {
+          "pattern": "create",
+          "name": "createRecipe",
+          "target": "createRecipe"
+        },
+        {
+          "pattern": "Treetable/{entityID1}",
+          "name": "Treetable",
+          "target": "Treetable"
+        },
+        {
+          "pattern": "Compare/{parent_ID}",
+          "name": "Compare",
+          "target": "Compare"
+        }
+      ],
+      "targets": {
+        "overview": {
+          "viewId": "overview",
+          "viewName": "Overview"
+        },
+        "detail": {
+          "viewId": "detail",
+          "viewName": "Detail"
+        },
+        "createRecipe": {
+          "viewId": "createRecipe",
+          "viewName": "CreateRecipe"
+        },
+        "Treetable": {
+          "viewId": "Treetable",
+          "viewName": "Treetable"
+        },
+        "Compare": {
+          "viewId": "Compare",
+          "viewName": "Compare"
+        }
+      }
+    },
+    "extends": {
+      "component": "<extendedComponentId>",
+      "minVersion": "<minComp1Version>",
+      "extensions": {}
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  },
+  "sap.platform.abap": {
+    "_version": "1.1.0",
+    "uri": "<uri>"
+  },
+  "sap.platform.hcp": {
+    "_version": "1.1.0",
+    "uri": "<uri>"
+  }
+}

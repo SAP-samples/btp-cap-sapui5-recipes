@@ -1,0 +1,69 @@
+{
+  "name": "recipe-service",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "6.1.2",
+    "express": "4.18.1",
+    "hdb": "0.19.5"
+  },
+  "devDependencies": {
+    "@prettier/plugin-xml": "2.2.0",
+    "@sap/ux-specification": "1.102.5",
+    "prettier": "2.7.1",
+    "rimraf": "3.0.2",
+    "sqlite3": "5.0.11"
+  },
+  "scripts": {
+    "start": "cds run",
+    "undeploy": "cf undeploy recipe-service --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-recipe-ui": "cds watch --open recipe-ui/webapp/index.html?sap-ui-xx-viewCache=false",
+    "format": "prettier --write \"db/**/**.{css,less,html,js,json,md,xml,yaml,yml}\""
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+  },
+  "sapux": [
+    "app/recipe-ui"
+  ],
+  "engines": {
+    "node": ">=14.15.0"
+  }
+}

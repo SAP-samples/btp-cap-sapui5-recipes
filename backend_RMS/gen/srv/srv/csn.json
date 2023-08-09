@@ -1,0 +1,410 @@
+{
+  "namespace": "t3046.recipe",
+  "definitions": {
+    "t3046.recipe.Recipes": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        },
+        "estimatedCost": {
+          "type": "cds.String"
+        },
+        "difficultyLevel": {
+          "type": "cds.String"
+        },
+        "prepTime": {
+          "type": "cds.String"
+        },
+        "cookTime": {
+          "type": "cds.String"
+        },
+        "totalTime": {
+          "type": "cds.String"
+        },
+        "servings": {
+          "type": "cds.String"
+        },
+        "dietaryType": {
+          "type": "cds.String"
+        },
+        "Author": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "t3046.users.Users",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "source": {
+          "type": "cds.String"
+        },
+        "cookingMethod": {
+          "type": "cds.String"
+        },
+        "recipeCategory": {
+          "type": "cds.String"
+        },
+        "recipeCuisine": {
+          "type": "cds.String"
+        },
+        "image": {
+          "type": "cds.String"
+        },
+        "imageUrl": {
+          "type": "cds.String"
+        },
+        "rating": {
+          "type": "cds.String"
+        },
+        "cookNote": {
+          "type": "cds.String"
+        },
+        "Ingredients": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "t3046.recipe.Ingredients",
+          "on": [
+            {
+              "ref": [
+                "Ingredients",
+                "belongsTo"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "PreparationSteps": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "t3046.recipe.PreparationSteps",
+          "on": [
+            {
+              "ref": [
+                "PreparationSteps",
+                "belongsTo"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "t3046.recipe.Ingredients": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "belongsTo": {
+          "type": "cds.Association",
+          "target": "t3046.recipe.Recipes",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "unit": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "t3046.recipe.PreparationSteps": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "belongsTo": {
+          "type": "cds.Association",
+          "target": "t3046.recipe.Recipes",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "order": {
+          "type": "cds.Integer"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "t3046.users.Users": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "alias": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "RecipeService": {
+      "@source": "srv/recipe-service.cds",
+      "kind": "service"
+    },
+    "RecipeService.Recipes": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "t3046.recipe.Recipes"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        },
+        "estimatedCost": {
+          "type": "cds.String"
+        },
+        "difficultyLevel": {
+          "type": "cds.String"
+        },
+        "prepTime": {
+          "type": "cds.String"
+        },
+        "cookTime": {
+          "type": "cds.String"
+        },
+        "totalTime": {
+          "type": "cds.String"
+        },
+        "servings": {
+          "type": "cds.String"
+        },
+        "dietaryType": {
+          "type": "cds.String"
+        },
+        "Author": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "RecipeService.Users",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "source": {
+          "type": "cds.String"
+        },
+        "cookingMethod": {
+          "type": "cds.String"
+        },
+        "recipeCategory": {
+          "type": "cds.String"
+        },
+        "recipeCuisine": {
+          "type": "cds.String"
+        },
+        "image": {
+          "type": "cds.String"
+        },
+        "imageUrl": {
+          "type": "cds.String"
+        },
+        "rating": {
+          "type": "cds.String"
+        },
+        "cookNote": {
+          "type": "cds.String"
+        },
+        "Ingredients": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "RecipeService.Ingredients",
+          "on": [
+            {
+              "ref": [
+                "Ingredients",
+                "belongsTo"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "PreparationSteps": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "RecipeService.PreparationSteps",
+          "on": [
+            {
+              "ref": [
+                "PreparationSteps",
+                "belongsTo"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "RecipeService.Users": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "t3046.users.Users"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "alias": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "RecipeService.Ingredients": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "t3046.recipe.Ingredients"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "belongsTo": {
+          "type": "cds.Association",
+          "target": "RecipeService.Recipes",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "unit": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "RecipeService.PreparationSteps": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "t3046.recipe.PreparationSteps"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "belongsTo": {
+          "type": "cds.Association",
+          "target": "RecipeService.Recipes",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "order": {
+          "type": "cds.Integer"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v2.15.4",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

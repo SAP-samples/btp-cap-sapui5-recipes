@@ -1,0 +1,103 @@
+<mvc:View height="100%" controllerName="sap.ui.ic2022.controller.Compare" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:cards="sap.f.cards" xmlns="sap.m">
+    <Page title="{i18n>compareTitle}" showNavButton="true" navButtonPress="BackToTree">
+    <f:DynamicPage class="sapUiComparisonContainer">
+        <f:title>
+            <f:DynamicPageTitle backgroundDesign="Transparent" stateChange="onStateChange" id="dynamic-page">
+                <f:heading>
+                    <Title text="Recipe variants comparison" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+
+        <f:content>
+                <Carousel height="100%" class="sapUiSmallMarginBottom" id="carousel-expanded" pages="{ path: '/' }" showPageIndicator="true" pageIndicatorPlacement="Top" pageChanged="onPageChanged">
+                    <customLayout>
+                        <CarouselLayout visiblePagesCount="3" />
+                    </customLayout>
+                    <f:Card class="sapUiTinyMarginTop">
+                        <f:header>
+                            <cards:Header title="{name}" iconDisplayShape="Square" iconSrc="{imageUrl}" subtitle="{description}" />
+                        </f:header>
+                        <f:content>
+                            <l:VerticalLayout width="100%">
+                                <l:BlockLayout>
+                                    <l:BlockLayoutRow>
+                                        <l:BlockLayoutCell>
+                                            <HBox>
+                                                <Label text="Recipe name:" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{name}" />
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="Recipe description:" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{description}" />
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="Author:" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{Author/alias}" />
+                                            </HBox>                                            
+                                            <HBox>
+                                                <Label text="Recipe cuisine:" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{recipeCuisine}" />
+                                            </HBox>       
+                                            <HBox>
+                                                <Label text="Dietary Type" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{dietaryType}" />
+                                            </HBox>  
+                                            <HBox>
+                                                <Label text="Preparation time" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{prepTime}" />
+                                            </HBox>    
+                                            <HBox>
+                                                <Label text="Recipe Category" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{recipeCategory}" />
+                                            </HBox>   
+                                            <HBox>
+                                                <Label text="Cooking method" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{cookingMethod}" />
+                                            </HBox>                                                                                                                                
+                                            <HBox>
+                                                <Label text="Ingredients List" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{ingredientsList}" />
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="Preparation steps" />
+                                            </HBox>
+                                            <HBox class="sapUiSmallMarginBottom">
+                                                <Text text="{prepList}" />
+                                            </HBox>                                                                                          
+                                        </l:BlockLayoutCell>                                  
+                                    </l:BlockLayoutRow>
+                                </l:BlockLayout>
+                      
+                            </l:VerticalLayout>
+       
+                        </f:content>
+                    </f:Card>
+                </Carousel>
+        </f:content>
+
+
+
+
+    </f:DynamicPage>   
+    </Page>
+</mvc:View>
