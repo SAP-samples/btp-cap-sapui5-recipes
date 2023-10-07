@@ -1,0 +1,29 @@
+VIEW RecipeService_Recipes AS SELECT
+  Recipes_0.ID,
+  Recipes_0.name,
+  Recipes_0.description,
+  Recipes_0.estimatedCost,
+  Recipes_0.difficultyLevel,
+  Recipes_0.prepTime,
+  Recipes_0.cookTime,
+  Recipes_0.totalTime,
+  Recipes_0.servings,
+  Recipes_0.dietaryType,
+  Recipes_0.Author_ID,
+  Recipes_0.source,
+  Recipes_0.cookingMethod,
+  Recipes_0.recipeCategory,
+  Recipes_0.recipeCuisine,
+  Recipes_0.image,
+  Recipes_0.imageUrl,
+  Recipes_0.rating,
+  Recipes_0.cookNote,
+  Recipes_0.parent_ID
+FROM t3046_recipe_Recipes AS Recipes_0
+WITH ASSOCIATIONS (
+  MANY TO ONE JOIN RecipeService_Users AS Author ON (Author.ID = Author_ID),
+  MANY TO ONE JOIN RecipeService_Recipes AS parent ON (parent.ID = parent_ID),
+  MANY TO MANY JOIN RecipeService_Recipes AS children ON (children.parent_ID = ID),
+  MANY TO MANY JOIN RecipeService_Ingredients AS Ingredients ON (Ingredients.belongsTo_ID = ID),
+  MANY TO MANY JOIN RecipeService_PreparationSteps AS PreparationSteps ON (PreparationSteps.belongsTo_ID = ID)
+)

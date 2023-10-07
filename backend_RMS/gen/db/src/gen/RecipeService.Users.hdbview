@@ -1,0 +1,4 @@
+VIEW RecipeService_Users AS SELECT
+  Users_0.ID,
+  Users_0.alias
+FROM t3046_users_Users AS Users_0

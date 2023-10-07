@@ -1,0 +1,57 @@
+general:
+  buildTool: 'mta'
+  productiveBranch: 'main'
+  pipelineOptimization: true
+  gitHttpsCredentialsId: 'hyperspace-github-tools-sap-d067807'
+  vaultAppRoleTokenCredentialsId: 'vault-approle-role-id-2989-14280'
+  vaultAppRoleSecretTokenCredentialsId: 'vault-approle-secret-id-accessor-2989-14280'
+  vaultBasePath: 'piper/PIPELINE-GROUP-2989'
+  vaultPipelineName: 'PIPELINE-14280'
+  vaultServerUrl: 'https://vault.tools.sap'
+  vaultNamespace: 'ies/hyperspace/pipelines'
+  nativeBuild: true
+  nativeVoting: true
+  manualConfirmation: false
+stages:
+  Central Build:
+    hadolintExecute: false
+  Acceptance:
+    cfApiEndpoint: https://api.cf.eu10-004.hana.ondemand.com
+    cfOrg: cf-ic2022
+    cfSpace: Team 3406
+    cfManifest: manifest.yaml
+    cfCredentialsId: 'hyperspace-scpcf-dl_62ebb994b98abb0299608c46@global.corp.sap'
+    testServerUrl: 'https://cf-ic2022-team-3406-recipe-service-srv.cfapps.eu10-004.hana.ondemand.com/'
+steps:
+  cloudFoundryDeploy:
+    mtaDeployParameters: '-f --version-rule ALL'
+  artifactPrepareVersion:
+    gitHttpsCredentialVaultSecretName: 'github'
+  mtaBuild:
+    mtaBuildTool: cloudMbt
+    mtarGroup: 'com.sap.hyperspace'
+  executeBuild:
+    buildType: stage
+  sapCallStagingService:
+    url: 'https://staging.repositories.cloud.sap/stage/api'
+    profile: 'group-2989-default'
+  whitesourceExecuteScan:
+    whitesourceProductName: 'DIST - BACKEND-RECIPE-SERVICE'
+    whitesourceProductToken: 'e9d5110282584172baa80634cc22fc71cc1190fd626e4d76bc0aec7a5f71f03e'
+    stashContent:
+      - buildDescriptor
+      - opensourceConfiguration
+      - classFiles
+      - tests
+    whitesourceUserTokenCredentialsId: 'hyperspace-whitesource-backend-recipe-service'
+  #sonarExecuteScan:
+  #  serverUrl: sonar instance URL
+  #  customTlsCertificateLinks: [] # workaround (can be remove once https://github.com/SAP/jenkins-library/issues/3276 is closed)
+  # for more information, please visit https://github.wdf.sap.corp/pages/ContinuousDelivery/piper-doc/steps/sonarExecuteScan
+  #checkmarxExecuteScan:
+  #  projectName: checkmarx project name
+  #  teamName:  checkmarx teamName. should be in the format - /CxServer/SP/SAP/****/****/**
+  # for more information, please visit https://github.wdf.sap.corp/pages/ContinuousDelivery/piper-doc/steps/checkmarxExecuteScan/
+  sapCumulusUpload:
+    pipelineId: 'd5c832ef-3feb-4012-b345-e9a0cd26f6f9'
+    cumulusFileCredentialsId: 'hyperspace-cumulusupload-2989'

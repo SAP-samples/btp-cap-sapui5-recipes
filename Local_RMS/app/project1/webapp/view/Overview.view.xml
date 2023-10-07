@@ -1,0 +1,13 @@
+<mvc:View controllerName="sap.ui.ic2022.controller.Overview" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns:f="sap.ui.comp.filterbar">
+  <Page title="{i18n>homePageTitle}">
+    <headerContent>
+        <tnt:InfoLabel visible="{= ${user-management>/alias} === null  }" text="{i18n>notLoggedIn}" renderMode="Narrow" colorScheme="1" />
+      <tnt:InfoLabel visible="{= ${user-management>/alias} !== null  }" text="{i18n>loggedInAs} {user-management>/alias}" renderMode="Narrow" colorScheme="8" />
+        <Button icon="sap-icon://add-document" press="onCreateRecipe" />
+        <Button icon="sap-icon://log" press="onLogout" />
+    </headerContent>
+    <content>
+      <mvc:XMLView viewName="sap.ui.ic2022.view.RecipesList" />
+    </content>
+  </Page>
+</mvc:View>

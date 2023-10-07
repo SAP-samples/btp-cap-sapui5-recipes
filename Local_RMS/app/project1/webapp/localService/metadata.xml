@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="RecipeService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Recipes" EntityType="RecipeService.Recipes">
+                    <NavigationPropertyBinding Path="Author" Target="Users"/>
+                    <NavigationPropertyBinding Path="parent" Target="Recipes"/>
+                    <NavigationPropertyBinding Path="children" Target="Recipes"/>
+                    <NavigationPropertyBinding Path="Ingredients" Target="Ingredients"/>
+                    <NavigationPropertyBinding Path="PreparationSteps" Target="PreparationSteps"/>
+                </EntitySet>
+                <EntitySet Name="Users" EntityType="RecipeService.Users"/>
+                <EntitySet Name="Ingredients" EntityType="RecipeService.Ingredients">
+                    <NavigationPropertyBinding Path="belongsTo" Target="Recipes"/>
+                </EntitySet>
+                <EntitySet Name="PreparationSteps" EntityType="RecipeService.PreparationSteps">
+                    <NavigationPropertyBinding Path="belongsTo" Target="Recipes"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Recipes">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="estimatedCost" Type="Edm.String"/>
+                <Property Name="difficultyLevel" Type="Edm.String"/>
+                <Property Name="prepTime" Type="Edm.String"/>
+                <Property Name="cookTime" Type="Edm.String"/>
+                <Property Name="totalTime" Type="Edm.String"/>
+                <Property Name="servings" Type="Edm.String"/>
+                <Property Name="dietaryType" Type="Edm.String"/>
+                <NavigationProperty Name="Author" Type="RecipeService.Users">
+                    <OnDelete Action="Cascade"/>
+                    <ReferentialConstraint Property="Author_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="Author_ID" Type="Edm.Guid"/>
+                <Property Name="source" Type="Edm.String"/>
+                <Property Name="cookingMethod" Type="Edm.String"/>
+                <Property Name="recipeCategory" Type="Edm.String"/>
+                <Property Name="recipeCuisine" Type="Edm.String"/>
+                <Property Name="image" Type="Edm.String"/>
+                <Property Name="imageUrl" Type="Edm.String"/>
+                <Property Name="rating" Type="Edm.String"/>
+                <Property Name="cookNote" Type="Edm.String"/>
+                <NavigationProperty Name="parent" Type="RecipeService.Recipes" Partner="children">
+                    <ReferentialConstraint Property="parent_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="parent_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="children" Type="Collection(RecipeService.Recipes)" Partner="parent">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="Ingredients" Type="Collection(RecipeService.Ingredients)" Partner="belongsTo">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="PreparationSteps" Type="Collection(RecipeService.PreparationSteps)" Partner="belongsTo">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Users">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="alias" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Ingredients">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="belongsTo" Type="RecipeService.Recipes" Partner="Ingredients">
+                    <ReferentialConstraint Property="belongsTo_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="belongsTo_ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="quantity" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="unit" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="PreparationSteps">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="belongsTo" Type="RecipeService.Recipes" Partner="PreparationSteps">
+                    <ReferentialConstraint Property="belongsTo_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="belongsTo_ID" Type="Edm.Guid"/>
+                <Property Name="order" Type="Edm.Int32"/>
+                <Property Name="description" Type="Edm.String"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

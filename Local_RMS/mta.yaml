@@ -1,0 +1,78 @@
+_schema-version: "3.1"
+ID: recipe-service
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: recipe-service-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: recipe-service-db
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+  - name: recipe-service-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: recipe-service-db
+    parameters:
+      buildpack: nodejs_buildpack
+
+
+
+resources:
+  - name: recipe-service-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+  - name: recipe-service-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: recipe-service-html5-srv
+      service-plan: app-host
+  - name: recipe-service-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: false
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: recipe-service-destination-service
+      service-plan: lite
+  - name: recipe-service-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: recipe-service-${org}-${space}
+        tenant-mode: dedicated
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production

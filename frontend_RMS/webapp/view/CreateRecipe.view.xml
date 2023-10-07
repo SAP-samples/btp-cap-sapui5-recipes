@@ -1,0 +1,266 @@
+<mvc:View controllerName="sap.ui.ic2022.controller.CreateRecipe" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns:ui="sap.ui.unified">
+  <Page title="{i18n>createPageTitle}" showNavButton="true" navButtonPress="onNavBack">
+    <headerContent>
+        <tnt:InfoLabel visible="{= ${user-management>/alias} === null  }" text="{i18n>notLoggedIn}" renderMode="Narrow" colorScheme="1" />
+      <tnt:InfoLabel visible="{= ${user-management>/alias} !== null  }" text="{i18n>loggedInAs} {user-management>/alias}" renderMode="Narrow" colorScheme="8" />
+        <Button icon="sap-icon://log" press="onLogout" />        
+    </headerContent>
+    <content>
+      <VBox class="sapUiSmallMargin">
+		<f:Form id="FormChange480_12120" editable="true">
+			<f:title>
+				<core:Title text="General" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+                    <f:FormElement label="Author">
+							<f:fields>
+								<Input editable="false" required="true" value="{user-management>/alias}" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Name">
+							<f:fields>
+								<Input required="true" value="{newRecipeModel>/name}" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Description">
+							<f:fields>
+								<TextArea required="true" value="{newRecipeModel>/description}" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Estimated Costs">
+							<f:fields>
+								<Select required="true" id="estimatedCost" selectedKey="{newRecipeModel>/estimatedCost}">
+									<items>
+                                        <core:Item text="{i18n>plsSlct}" key="0" />
+										<core:Item text="{i18n>costLevel1}" key="{i18n>costLevel1}" />
+										<core:Item text="{i18n>costLevel2}" key="{i18n>costLevel2}" />
+										<core:Item text="{i18n>costLevel3}" key="{i18n>costLevel3}" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+                        <f:FormElement label="Difficulty Level">
+							<f:fields>
+								<Select required="true" id="difficultyLevel" selectedKey="{newRecipeModel>/difficultyLevel}">
+									<items>
+                                        <core:Item text="{i18n>plsSlct}" key="0" />
+										<core:Item text="{i18n>difficultyLevel1}" key="{i18n>difficultyLevel1}" />
+										<core:Item text="{i18n>difficultyLevel2}" key="{i18n>difficultyLevel2}" />
+										<core:Item text="{i18n>difficultyLevel3}" key="{i18n>difficultyLevel3}" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Preparation Time">
+							<f:fields>
+								<Input required="true" value="{newRecipeModel>/prepTime}" type="Number" description="minutes" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Cooking Time">
+							<f:fields>
+								<Input required="true" value="{newRecipeModel>/cookTime}" type="Number" description="minutes" />
+							</f:fields>
+						</f:FormElement>
+                        <f:FormElement label="Total Time">
+							<f:fields>
+								<Input required="true" value="{newRecipeModel>/totalTime}" type="Number" description="minutes" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+                <f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Servings">
+							<f:fields>
+								<Input required="true" value="{newRecipeModel>/servings}" type="Number" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Dietary Type">
+							<f:fields>
+								<Select required="true" selectedKey="{newRecipeModel>/dietaryType}">
+									<items>
+										<core:Item text="{i18n>plsSlct}" key="None" />
+										<core:Item text="Meat" key="Meat" />
+										<core:Item text="Pescatarian" key="Pescatarian" />
+                                        <!-- <core:Item text="Seafood" key="Seafood" /> -->
+                                        <core:Item text="Vegetarian" key="Vegetarian" />
+                                        <core:Item text="Vegan" key="Vegan" />
+                                        <core:Item text="Other" key="Other" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+                        <f:FormElement label="Recipe Category">
+							<f:fields>
+								<Select required="true" selectedKey="{newRecipeModel>/recipeCategory}">
+									<items>
+                                        <core:Item text="{i18n>plsSlct}" key="None" />
+										<core:Item text="Dessert" key="Dessert" />
+										<core:Item text="Main dish" key="Main dish" />
+                                        <core:Item text="Salad" key="Salad" />
+										<core:Item text="Side" key="Side" />
+                                        <core:Item text="Other" key="Other" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+                        <f:FormElement label="Cooking Method">
+							<f:fields>
+								<Select required="true" selectedKey="{newRecipeModel>/cookingMethod}">
+									<items>			
+                                        <core:Item text="{i18n>plsSlct}" key="None" />							
+										<core:Item text="Grill" key="Grill" />
+										<core:Item text="Raw" key="Raw" />
+                                        <core:Item text="Oven Bake" key="Oven Bake" />
+                                         <core:Item text="Fry" key="Fry" />
+                                        <core:Item text="Other" key="Other" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+                        <f:FormElement label="Recipe Cuisine">
+							<f:fields>
+								<Select required="true" selectedKey="{newRecipeModel>/recipeCuisine}">
+									<items>		
+                                        <core:Item text="{i18n>plsSlct}" key="0" />								
+										<core:Item text="African" key="African" />
+										<core:Item text="Asian" key="Asian" />
+                                        <core:Item text="European" key="European" />
+                                        <core:Item text="North American" key="North American" />
+                                        <core:Item text="Middle Eastern" key="Middle Eastern" /> 
+                                        <core:Item text="South American" key="South American" />                                       
+                                        <core:Item text="Other" key="Other" />
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+                        
+					</f:formElements>
+				</f:FormContainer>
+                <f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Image URL">
+							<f:fields>
+								<Input id="imageUrlID" value="{newRecipeModel>/imageUrl}" type="Url" change="changeUrl" />
+                                <ui:FileUploader id="fileUploaderFS" buttonOnly="true" value="{newRecipeModel>/imageUrl}" change="imageChange" multiple="false" />                              
+							</f:fields>
+						</f:FormElement>
+						<!--<f:FormElement label="Cook note">
+							<f:fields>
+								<TextArea value="{newRecipeModel>/cookNote}" placeholder="What was meant here?" />
+							</f:fields>
+						</f:FormElement>-->
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+		<f:Form id="FormChange480_12120-2" editable="true">
+			<f:title>
+				<core:Title text="Ingredients" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement>
+							<f:fields>
+                            <VBox>
+                                <OverflowToolbar>
+                                    
+                                </OverflowToolbar>
+                                    <List items="{path: 'ingredientModel>/'}">
+                                        <items>
+                                            <CustomListItem>                                            
+                                                <VBox class="sapUiSmallMargin">
+                                                    <Label text="Name" labelFor="ingredientName" />
+                                                    <Input id="ingredientName" required="true" value="{ingredientModel>name}" type="Text" class="sapUiSmallMarginBottom" />
+
+                                                    <Label text="Quantity" labelFor="ingredientQuantity" />
+                                                    <Input id="ingredientQuantity" required="true" value="{ingredientModel>quantity}" type="Number" class="sapUiSmallMarginBottom" />
+
+                                                    <Label text="Unit" labelFor="ingredientUnit" />
+                                                    <Select id="ingredientUnit" required="true" selectedKey="{ingredientModel>unit}" class="sapUiSmallMarginBottom">
+                                                        <items>										
+                                                            <core:Item text="units" key="units" />
+                                                            <core:Item text="l" key="l" />
+                                                            <core:Item text="ml" key="ml" />
+                                                            <core:Item text="gr" key="gr" />
+                                                            <core:Item text="kg" key="kg" />  
+                                                            <core:Item text="tsp (tea spoon)" key="tsp" /> 
+                                                            <core:Item text="tbsp (table spoon)" key="tbsp" /> 
+                                                            <core:Item text="qty (quantity)" key="qty" /> 
+                                                            <core:Item text="cups" key="cups" />
+                                                            <core:Item text="N/A" key="N/A" /> 
+                                                        </items>
+                                                    </Select>   
+                                                    <Button class="sapUiSmallMarginTop" type="Reject" text="{i18n>btnDelete}" press="onDelete($event, ${ingredientModel>id},'ingredientModel')" />                                                  
+                                                </VBox>
+                                            </CustomListItem>
+                                        </items>
+                                    </List>
+                                    <Button text="Add" type="Emphasized" press="onAdd($event, 'ingredientModel')" class="sapUiSmallMargin" />
+                                </VBox>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+        <f:Form editable="true">
+			<f:title>
+				<core:Title text="Preparation Steps" />
+			</f:title>
+			<f:layout>
+				<f:ResponsiveGridLayout />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement>
+							<f:fields>
+                                <VBox>
+                                    <List items="{prepStepModel>/}">
+                                        <items>
+                                            <CustomListItem>                                            
+                                                <VBox class="sapUiSmallMargin">
+                                                    <Label text="{i18n>prepStep}" labelFor="prepStepDesc" />
+                                                    <TextArea id="prepStepDesc" required="true" value="{prepStepModel>description}" rows="5" width="100%" />          
+                                                    <Button
+                                class="sapUiSmallMarginTop"
+                                type="Reject"
+                                text="{i18n>btnDelete}"
+                                press="onDelete($event, ${prepStepModel>id},'prepStepModel')"
+                              />                                                                                                   
+                                                </VBox>
+                                            </CustomListItem>
+                                        </items>
+                                    </List>
+                                    <Button text="Add" type="Emphasized" press="onAdd($event, 'prepStepModel')" class="sapUiSmallMargin" />
+                                </VBox>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+    </content>
+    <footer>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Button type="Emphasized" text="{i18n>createRecipeBtn}" press="onCreate" />
+			</Toolbar>
+		</footer>
+  </Page>
+</mvc:View>

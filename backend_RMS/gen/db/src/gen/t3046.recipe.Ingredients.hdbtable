@@ -1,0 +1,10 @@
+COLUMN TABLE t3046_recipe_Ingredients (
+  ID NVARCHAR(36) NOT NULL,
+  belongsTo_ID NVARCHAR(36),
+  name NVARCHAR(5000),
+  quantity DECIMAL,
+  unit NVARCHAR(5000),
+  PRIMARY KEY(ID)
+) WITH ASSOCIATIONS (
+  MANY TO ONE JOIN t3046_recipe_Recipes AS belongsTo ON (belongsTo.ID = belongsTo_ID)
+)

@@ -1,0 +1,239 @@
+<mvc:View controllerName="sap.ui.ic2022.controller.Detail" xmlns:ui="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout">
+  <m:Page title="{i18n>detailPageTitle}" showNavButton="true" navButtonPress="onNavBack">
+    <m:content>
+      <ObjectPageLayout id="ObjectPageLayout" binding="{ path : 'recipe-service>', $$updateGroupId : 'fullRecipe' }">
+        <headerTitle>
+          <ObjectPageDynamicHeaderTitle>
+            <expandedHeading>
+              <m:Title class="sapUiSmallMarginEnd" wrapping="true" text="{recipe-service>name}" />
+            </expandedHeading>
+            
+            <actions>
+              <m:Button type="Emphasized" text="{i18n>clone}" press="handleClonePress" />
+              <m:Button type="Emphasized" text="{i18n>edit}" press="handleEditPress" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; !${viewModel>/enabled} }" />
+              <m:Button type="Emphasized" text="{i18n>save}" id="idsave" press="handleSavePress" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled} }" />
+              <m:Button type="Ghost" text="{i18n>cancel}" press="handleCancel" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}}" />
+              <m:Button type="Reject" text="{i18n>delete}" press="handleDelete" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias}}" />
+              <m:Button type="Emphasized" text="{i18n>variants}" press="handleVariants" />              
+            </actions>
+          </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+        <headerContent>
+          <m:FlexBox fitContainer="true" wrap="Wrap">
+            <m:Avatar class="sapUiSmallMarginEnd" src="{recipe-service>imageUrl}" displaySize="XL" />
+            <layout:HorizontalLayout class="sapUiContentPadding">
+              <layout:VerticalLayout class="sapUiContentPadding">
+                <m:ObjectStatus title="{i18n>description}" text="{recipe-service>description}" />
+              </layout:VerticalLayout>
+            </layout:HorizontalLayout>                  
+          </m:FlexBox>
+        </headerContent>
+        <sections>
+          <ObjectPageSection title="General Information">
+            <subSections>
+              <ObjectPageSubSection>
+                <blocks>
+                  <form:SimpleForm id="form1" editable="true" layout="ColumnLayout">
+                    <m:Label design="Bold" text="Author" />
+                    <m:Input id="author" editable="false" value="{recipe-service>Author/alias}" />
+                    <m:Label design="Bold" text="Name" />
+                    <m:Input id="name" required="true" editable="{viewModel>/enabled}" value="{recipe-service>name}" />
+                    <m:Label design="Bold" text="Description" />
+                    <m:Input id="description" required="true" editable="{viewModel>/enabled}" value="{recipe-service>description}" />
+                    <m:Label design="Bold" text="Servings" />
+                    <m:Input id="servings" required="true" editable="{viewModel>/enabled}" value="{recipe-service>servings}" />
+                    <m:Label design="Bold" text="Preparation Time" />
+                    <m:Input id="prepTime" required="true" editable="{viewModel>/enabled}" value="{recipe-service>prepTime}" description="minutes" />
+                    <m:Label design="Bold" text="Cooking Time" />
+                    <m:Input id="cookTime" required="true" editable="{viewModel>/enabled}" value="{recipe-service>cookTime}" description="minutes" />
+                    <m:Label design="Bold" text="Total Time" />
+                    <m:Input id="totalTime" required="true" editable="{viewModel>/enabled}" value="{recipe-service>totalTime}" description="minutes" />       
+                    <m:Label design="Bold" text="Dietary Type" /> 
+                    <m:Select id="dietaryType" required="true" editable="{viewModel>/enabled}" selectedKey="{recipe-service>dietaryType}">
+                        <m:items>
+                            <core:Item text="{i18n>plsSlct}" key="0" />
+                            <core:Item text="Meat" key="Meat" />
+                            <core:Item text="Pescatarian" key="Pescatarian" />
+                            <!-- <core:Item text="Seafood" key="Seafood" /> -->
+                            <core:Item text="Vegetarian" key="Vegetarian" />
+                            <core:Item text="Vegan" key="Vegan" />
+                            <core:Item text="Other" key="Other" />
+                        </m:items>
+                    </m:Select>                    
+                    <m:Label design="Bold" text="Category" />
+                    <m:Select required="true" id="recipeCategory" editable="{viewModel>/enabled}" selectedKey="{recipe-service>recipeCategory}">
+                        <m:items>
+                            <core:Item text="{i18n>plsSlct}" key="0" />
+                            <core:Item text="Dessert" key="Dessert" />
+                            <core:Item text="Main dish" key="Main dish" />
+                            <core:Item text="Salad" key="Salad" />
+                            <core:Item text="Side" key="Side" />
+                            <core:Item text="Other" key="Other" />
+                        </m:items>
+                    </m:Select>
+                    <m:Label design="Bold" text="Cooking Method" />
+                    <m:Select required="true" id="cookingMethod" editable="{viewModel>/enabled}" selectedKey="{recipe-service>cookingMethod}">
+                        <m:items>			
+                            <core:Item text="{i18n>plsSlct}" key="0" />							
+                            <core:Item text="Grill" key="Grill" />
+                            <core:Item text="Raw" key="Raw" />
+                            <core:Item text="Oven Bake" key="Oven Bake" />
+                            <core:Item text="Fry" key="Fry" />
+                            <core:Item text="Other" key="Other" />
+                        </m:items>
+                    </m:Select>                   
+                    <m:Label design="Bold" text="Recipe Cuisine" />
+                    <m:Select required="true" id="recipeCuisine" editable="{viewModel>/enabled}" selectedKey="{recipe-service>recipeCuisine}">
+                        <m:items>		
+                            <core:Item text="{i18n>plsSlct}" key="0" />								
+							<core:Item text="African" key="African" />
+							<core:Item text="Asian" key="Asian" />
+                            <core:Item text="European" key="European" />
+                            <core:Item text="North American" key="North American" />
+                            <core:Item text="Middle Eastern" key="Middle Eastern" /> 
+                            <core:Item text="South American" key="South American" />                                       
+                            <core:Item text="Other" key="Other" />
+                        </m:items>
+                    </m:Select>
+                    <m:Label design="Bold" text="Image URL" />
+                    <m:Input id="imageUrl" value="{recipe-service>imageUrl}" editable="{viewModel>/enabled}" type="Url" /> 
+                    <ui:FileUploader id="fileUploaderFS" buttonOnly="true" value="{recipe-service>imageUrl}" change="imageChange" enabled="{viewModel>/enabled}" multiple="false" /> 
+                    <m:Label design="Bold" text="Estimated Cost" />
+                    <m:Select required="true" editable="{viewModel>/enabled}" id="estimatedCost" selectedKey="{recipe-service>estimatedCost}">
+                        <m:items>
+                            <core:Item text="{i18n>plsSlct}" key="None" />
+                            <core:Item text="{i18n>costLevel1}" key="{i18n>costLevel1}" />
+                            <core:Item text="{i18n>costLevel2}" key="{i18n>costLevel2}" />
+                            <core:Item text="{i18n>costLevel3}" key="{i18n>costLevel3}" />
+                        </m:items>
+                    </m:Select>
+                    <m:Label design="Bold" text="Difficulty Level" />
+                    <m:Select required="true" editable="{viewModel>/enabled}" id="difficultyLevel1" selectedKey="{recipe-service>difficultyLevel}">
+                        <m:items>
+                            <core:Item text="{i18n>plsSlct}" key="0" />
+                            <core:Item text="{i18n>difficultyLevel1}" key="{i18n>difficultyLevel1}" />
+                            <core:Item text="{i18n>difficultyLevel2}" key="{i18n>difficultyLevel2}" />
+                            <core:Item text="{i18n>difficultyLevel3}" key="{i18n>difficultyLevel3}" />
+                        </m:items>
+                    </m:Select>
+
+                  </form:SimpleForm>
+                </blocks>
+              </ObjectPageSubSection>
+            </subSections>
+          </ObjectPageSection>      
+          <ObjectPageSection title="Ingredients">
+            <subSections>
+              <ObjectPageSubSection>
+                <blocks>
+                  <m:VBox class="sapUiSmallMargin">                
+                    <m:List id="ingredients_list" items="{ path: 'recipe-service>Ingredients'}" mode="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}  ? 'SingleSelect' : 'None'}" selectionChange="selIngre">
+                      <m:CustomListItem id="L1" class="sapUiContentPadding">
+                        <m:VBox class="sapUiSmallMargin">
+                          <m:Label text="Ingredient Name" />
+                          <m:Input id="ingName" value="{recipe-service>name}" editable="{viewModel>/enabled}" type="Text" />
+                          <m:Label text="Quantity" />
+                          <m:Input id="ingQuan" value="{recipe-service>quantity}" editable="{viewModel>/enabled}" type="Number" />  
+                          <m:Label text="Unit" />
+                          <m:Select id="ingUnit" editable="{viewModel>/enabled}" selectedKey="{recipe-service>unit}">
+                            <m:items>
+                              
+
+                                <core:Item text="units" key="units" />
+                                <core:Item text="l" key="l" />
+                                <core:Item text="ml" key="ml" />
+                                <core:Item text="gr" key="gr" />
+                                <core:Item text="kg" key="kg" /> 
+                                <core:Item text="tsp" key="tsp" />  
+                                <core:Item text="tbsp" key="tbsp" />   
+                                <core:Item text="qty" key="qty" /> 
+                                <core:Item text="cups" key="cups" />
+                                <core:Item text="N/A" key="N/A" />                                       
+
+                            </m:items>
+                          </m:Select>
+                        </m:VBox> 
+                      </m:CustomListItem>
+                    </m:List>
+                              
+                    <m:VBox class="sapUiSmallMargin" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled} }">   
+                        <m:Label text="Ingredient Name" required="true" />
+                        <m:Input id="ingNameNew" value="{ingredientModel>/name}" editable="{viewModel>/enabled}" type="Text" />
+
+                        <m:Label text="Quantity" required="true" />
+                        <m:Input id="ingQuanNew" value="{ingredientModel>/quantity}" editable="{viewModel>/enabled}" type="Number" />  
+
+
+                    <m:Label text="Unit" required="true" />
+                    <m:Select id="ingUnitNew" editable="{viewModel>/enabled}" selectedKey="{ingredientModel>/unit}">
+                        <m:items>
+                          <core:Item text="units" key="units" />
+                          <core:Item text="l" key="l" />
+                          <core:Item text="ml" key="ml" />
+                          <core:Item text="gr" key="gr" />
+                          <core:Item text="kg" key="kg" /> 
+                          <core:Item text="tsp" key="tsp" />  
+                          <core:Item text="tbsp" key="tbsp" />   
+                          <core:Item text="qty" key="qty" /> 
+                          <core:Item text="cups" key="cups" />
+                          <core:Item text="N/A" key="N/A" />                               
+                        </m:items>
+                    </m:Select> 
+                    <m:HBox>                    
+                      <m:Button text="{i18n>add}" class="sapUiMediumMargin" width="100px" type="Emphasized" press="onAddItem($event, 'ingredientModel')" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}}" />
+                      <m:Button text="{i18n>delete}" class="sapUiMediumMargin" width="100px" type="Reject" press="onDeleteItem($event, 'ingredientModel')" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}}" />
+                    </m:HBox>
+
+                    </m:VBox>                 
+                 </m:VBox>    
+                </blocks>
+              </ObjectPageSubSection>
+            </subSections>
+          </ObjectPageSection>
+
+          <ObjectPageSection title="Method of Preparation">
+            <subSections>
+              <ObjectPageSubSection>
+                <blocks>
+                  <m:VBox class="sapUiSmallMargin"> 
+                    <m:List
+                      id="prep_steps"
+                      items="{ path: 'recipe-service>PreparationSteps', sorter: {path: 'order', descending: false }}"
+                      mode="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}  ? 'SingleSelect' : 'None'}"
+                      selectionChange="selPrep"
+                    >
+                      <m:CustomListItem id="L2">
+                        <m:VBox class="sapUiSmallMargin"> 
+                          <m:Label text="Order" />
+                          <m:Input id="prepOrder" value="{recipe-service>order}" editable="{viewModel>/enabled}" type="Number" />
+                          
+                          <m:Label text="Description" />
+                          <m:TextArea id="prepDesc" value="{recipe-service>description}" editable="{viewModel>/enabled}" growing="true" growingMaxLines="7" width="100%" />
+                          
+                        </m:VBox>
+                      </m:CustomListItem>
+                    </m:List>
+
+                    <m:VBox class="sapUiSmallMargin" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled} }">                    
+                      <m:Label text="Order" required="true" />
+                      <m:Input id="prepOrderNew" value="{prepStepModel>/order}" editable="{viewModel>/enabled}" type="Number" />
+                      
+                      <m:Label text="Description" required="true" />
+                      <m:TextArea id="prepDescNew" value="{prepStepModel>/description}" editable="{viewModel>/enabled}" placeholder="Enter Text" growing="true" growingMaxLines="7" width="100%" />
+                      <m:HBox>
+                        <m:Button text="{i18n>add}" class="sapUiMediumMargin" width="100px" type="Emphasized" press="onAddItem($event, 'prepStepModel')" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled} }" />
+                        <m:Button text="{i18n>delete}" class="sapUiMediumMargin" width="100px" type="Reject" press="onDeleteItem($event, 'prepStepModel')" visible="{= ${user-management>/alias} === %{recipe-service>Author/alias} &amp;&amp; ${viewModel>/enabled}}" />
+                      </m:HBox>
+                    </m:VBox>
+
+                  </m:VBox>
+                </blocks>
+              </ObjectPageSubSection>
+            </subSections>
+          </ObjectPageSection>
+
+        </sections>
+      </ObjectPageLayout>
+    </m:content>
+  </m:Page>
+</mvc:View>

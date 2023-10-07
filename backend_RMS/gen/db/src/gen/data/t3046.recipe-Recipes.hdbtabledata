@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "T3046_RECIPE_RECIPES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "t3046.recipe-Recipes.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME",
+          "DESCRIPTION",
+          "ESTIMATEDCOST",
+          "DIFFICULTYLEVEL",
+          "PREPTIME",
+          "COOKTIME",
+          "TOTALTIME",
+          "SERVINGS",
+          "DIETARYTYPE",
+          "AUTHOR_ID",
+          "SOURCE",
+          "COOKINGMETHOD",
+          "RECIPECATEGORY",
+          "RECIPECUISINE",
+          "IMAGE",
+          "IMAGEURL",
+          "RATING",
+          "COOKNOTE",
+          "PARENT_ID"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "NAME": "name",
+        "DESCRIPTION": "description",
+        "ESTIMATEDCOST": "estimatedCost",
+        "DIFFICULTYLEVEL": "difficultyLevel",
+        "PREPTIME": "prepTime",
+        "COOKTIME": "cookTime",
+        "TOTALTIME": "totalTime",
+        "SERVINGS": "servings",
+        "DIETARYTYPE": "dietaryType",
+        "AUTHOR_ID": "Author_ID",
+        "SOURCE": "source",
+        "COOKINGMETHOD": "cookingMethod",
+        "RECIPECATEGORY": "recipeCategory",
+        "RECIPECUISINE": "recipeCuisine",
+        "IMAGE": "image",
+        "IMAGEURL": "imageUrl",
+        "RATING": "rating",
+        "COOKNOTE": "cookNote",
+        "PARENT_ID": "parent_ID"
+      }
+    }
+  ]
+}

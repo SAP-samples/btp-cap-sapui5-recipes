@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="RecipeService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Recipes" EntityType="RecipeService.Recipes"/>
+            </EntityContainer>
+            <EntityType Name="Recipes">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="estimatedCost" Type="Edm.String"/>
+                <Property Name="difficultyLevel" Type="Edm.Int32"/>
+                <Property Name="prepTime" Type="Edm.String"/>
+                <Property Name="cookTime" Type="Edm.String"/>
+                <Property Name="totalTime" Type="Edm.String"/>
+                <Property Name="servings" Type="Edm.Int32"/>
+                <Property Name="dietaryType" Type="Edm.String"/>
+                <Property Name="author" Type="Edm.String"/>
+                <Property Name="source" Type="Edm.String"/>
+                <Property Name="cookingMethod" Type="Edm.String"/>
+                <Property Name="recipeCategory" Type="Edm.String"/>
+                <Property Name="recipeCuisine" Type="Edm.String"/>
+                <Property Name="ingredients" Type="Edm.String"/>
+                <Property Name="image" Type="Edm.String"/>
+                <Property Name="imageUrl" Type="Edm.String"/>
+                <Property Name="rating" Type="Edm.String"/>
+                <Property Name="cookNote" Type="Edm.String"/>
+            </EntityType>
+            <Annotations Target="RecipeService.EntityContainer/Recipes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
