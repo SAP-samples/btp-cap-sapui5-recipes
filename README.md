@@ -1,4 +1,7 @@
 # Recipe Management system application
+
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/btp-cap-sapui5-recipes)](https://api.reuse.software/info/github.com/SAP-samples/btp-cap-sapui5-recipes)
+
 ## Description
 The (RMS)Recipe Management system application is used to create and manage the recipes. The user creates the recipe with the list of ingredients and method of preparation. User can edit and clone a recipe.
  Only the author of the recipe can be able to edit/delete the recipe. The other users can only be able to view the recipe or clone the recipe. Value addition of the developed Recipe App enables the user to create different variants of recipes. The recipe relationships can be visualized through table and Tree view.  The recipe variants can be compared to determine the key changes of the recipe. Through this web application, the user can be able to change the recipe instantly based on the taste buds of the customer.<br>
