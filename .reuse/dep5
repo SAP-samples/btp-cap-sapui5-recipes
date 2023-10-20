@@ -24,7 +24,7 @@ Disclaimer: The code in this project may include calls to APIs ("API Calls") of
  you any rights to use or access any SAP External Product, or provide any third
  parties the right to use of access any SAP External Product, through API Calls.
 
-Files: backend_RMS, frontend_RMS, local_RMS
+Files: *
 Copyright:  2023 SAP SE or an SAP affiliate company and <Recipes Management System> Prasanna Ramanathan and Jayaram Pramod
 License: Apache-2.0
 
